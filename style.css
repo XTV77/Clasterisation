@@ -137,24 +137,11 @@ body {
 /*------------------------------------------------*/
 .point {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border: 1px solid #000;
   border-radius: 50%;
   background-color: #fff;
-  -webkit-transition-duration: 0.85s;
-          transition-duration: 0.85s;
-}
-
-.area div:nth-child(odd) {
-  background-color: rgb(90, 255, 40);
-}
-.area div:nth-child(even) {
-  background-color: rgb(255, 34, 192);
-}
-.area div:first-child {
-  background-color: #da3507;
-}
-.area div:last-child {
-  background-color: blue;
+  -webkit-transition-duration: 0.65s;
+          transition-duration: 0.65s;
 }
