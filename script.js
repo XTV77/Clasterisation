@@ -1,20 +1,30 @@
-const HTML_Area = document.querySelector(".area").getBoundingClientRect();
-const setPoints = document.querySelectorAll(".point");
-const size = document.querySelector(".point").offsetWidth;
-const Colors = ["red", "green", "blue", "yellow", "purple", "orange"];
-
-const X_LeftBorder = parseFloat(HTML_Area.x.toFixed(2));
-const Y_TopBorder = parseFloat(HTML_Area.y.toFixed(2));
-const X_max = parseFloat(HTML_Area.width.toFixed(2)) - size;
-const Y_max = parseFloat(HTML_Area.height.toFixed(2)) - size;
+const HTML_Area = document.querySelector(".area");
+const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
+let point_size = 0;
+let HTML_Area_size = HTML_Area.getBoundingClientRect();
+let X_LeftBorder = parseFloat(HTML_Area_size.x.toFixed(2));
+let Y_TopBorder = parseFloat(HTML_Area_size.y.toFixed(2));
+let X_max = parseFloat(HTML_Area_size.width.toFixed(2)) - point_size;
+let Y_max = parseFloat(HTML_Area_size.height.toFixed(2)) - point_size;
 
 const eps = 0.005;
-let K_mean = 4;
+let numberOfPoint = 0;
+let K_mean = 2;
+let setPoints = [];
 let Clusters = [];
 let ClustersCenter = [];
 let newCenter = [];
-let SameCenter = false;
+let sameCenter = false;
 
+function getAreaBorder() {
+  point_size = document.querySelector(".point").offsetWidth;
+  setPoints = document.querySelectorAll(".point");
+  HTML_Area_size = HTML_Area.getBoundingClientRect();
+  X_LeftBorder = parseFloat(HTML_Area_size.x.toFixed(2));
+  Y_TopBorder = parseFloat(HTML_Area_size.y.toFixed(2));
+  X_max = parseFloat(HTML_Area_size.width.toFixed(2)) - point_size;
+  Y_max = parseFloat(HTML_Area_size.height.toFixed(2)) - point_size;
+}
 function rewrite() {
   for (let i = 0; i < setPoints.length; i++) {
     setPoints[i].style.backgroundColor = "#fff";
@@ -39,12 +49,37 @@ function checkExactCenter(exactCenter, XY_current, XY_new) {
     return exactCenter;
   }
 }
-function generator() {
+function generate() {
+  let P = document.querySelector(".input-pointNumber").value;
+  let K = document.querySelector(".input-K-mean").value;
+  if (K != "" && parseInt(K) > 1 && parseInt(K) <= colors.length) {
+    if (P != "" && parseInt(P) >= K && parseInt(P) < 201) {
+      numberOfPoint = parseInt(P);
+      K_mean = parseInt(K);
+      if (setPoints != "") {
+        for (let i = 0; i < setPoints.length; i++) {
+          setPoints[i].remove();
+        }
+      }
+      document.querySelector(".input-pointNumber").value = "";
+      document.querySelector(".input-K-mean").value = "";
+      document.querySelector(".gener_button").removeAttribute("disabled");
+      for (let i = 0; i < numberOfPoint; i++) {
+        const newPoint = document.createElement("div");
+        newPoint.classList.value = "point";
+        HTML_Area.append(newPoint);
+      }
+      regenerator();
+    }
+  }
+}
+function regenerator() {
+  getAreaBorder();
   for (let i = 0; i < setPoints.length; i++) {
     setPoints[i].style.left =
-      String(Math.round(Math.random() * (X_max - size))) + "px";
+      String(Math.round(Math.random() * (X_max - point_size))) + "px";
     setPoints[i].style.top =
-      String(Math.round(Math.random() * (Y_max - size))) + "px";
+      String(Math.round(Math.random() * (Y_max - point_size))) + "px";
   }
   rewrite();
   document.querySelector(".clust_button").setAttribute("disabled", "");
@@ -60,15 +95,15 @@ function pickCenter() {
       randIndex = Math.round(Math.random() * (setPoints.length - 1));
     }
     includedPointIndex[i] = randIndex;
-    setPoints[randIndex].style.backgroundColor = Colors[j];
-    setPoints[randIndex].classList.add(Colors[j]);
+    setPoints[randIndex].style.backgroundColor = colors[j];
+    setPoints[randIndex].classList.add(colors[j]);
     setPoints[randIndex].style.borderRadius = 0;
     ClustersCenter[i] = [
       setPoints[randIndex].getBoundingClientRect().x,
       setPoints[randIndex].getBoundingClientRect().y,
     ];
     j++;
-    if (j >= Colors.length) j = 0;
+    if (j >= colors.length) j = 0;
   }
   document.querySelector(".pick_button").setAttribute("disabled", "");
   document.querySelector(".clust_button").removeAttribute("disabled");
@@ -98,8 +133,8 @@ function clustering() {
         closestPointIndex = j;
       }
     }
-    setPoints[i].style.backgroundColor = Colors[closestPointIndex];
-    setPoints[i].classList.add(Colors[closestPointIndex]);
+    setPoints[i].style.backgroundColor = colors[closestPointIndex];
+    setPoints[i].classList.add(colors[closestPointIndex]);
   }
 }
 function reclustering() {
@@ -108,14 +143,14 @@ function reclustering() {
   for (let i = 0; i < K_mean; i++) {
     X_new = 0;
     Y_new = 0;
-    Clusters[i] = document.querySelectorAll("." + Colors[i]);
+    Clusters[i] = document.querySelectorAll("." + colors[i]);
     for (let j = 0; j < Clusters[i].length; j++) {
       X_new += Clusters[i][j].getBoundingClientRect().x;
       Y_new += Clusters[i][j].getBoundingClientRect().y;
     }
     newCenter[i] = [X_new / Clusters[i].length, Y_new / Clusters[i].length];
   }
-  if (checkExactCenter(SameCenter, ClustersCenter, newCenter)) {
+  if (checkExactCenter(sameCenter, ClustersCenter, newCenter)) {
     document.querySelector(".clust_button").setAttribute("disabled", "");
     document.querySelector(".reclust_button").setAttribute("disabled", "");
   } else {
@@ -133,9 +168,3 @@ function endResult() {
 ///*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*-*-*-*-*
 ///*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*-*-*-*-*
 ///*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*-*-*-*-*
-for (let i = 0; i < setPoints.length; i++) {
-  setPoints[i].style.left =
-    String(Math.round(Math.random() * (X_max - size))) + "px";
-  setPoints[i].style.top =
-    String(Math.round(Math.random() * (Y_max - size))) + "px";
-}

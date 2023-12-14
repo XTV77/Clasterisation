@@ -7,128 +7,25 @@
     <title>K-Mean</title>
   </head>
   <body>
-    <div class="area">
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-      <div class="point"></div>
-    </div>
+    <div class="toner"></div>
+    <div class="input-error"></div>
+    <div class="area"></div>
     <div class="navbar">
-      <button onclick="generator()">Generate</button>
-      <button onclick="tester()" disabled>TEST</button>
+      <div class="input-form">
+        <p>введіть кількість</p>
+        <div class="input-info">
+          <p>точок</p>
+          <p>кластерів</p>
+        </div>
+        <div class="input-field">
+          <input type="number" class="input-pointNumber" placeholder=" 1-200" />
+          <input type="number" class="input-K-mean" placeholder=" 1-6" />
+        </div>
+        <button class="input-button" onclick="generate()">Генерувати</button>
+      </div>
+      <button onclick="regenerator()" class="gener_button" disabled>
+        Generate
+      </button>
       <div>
         <button onclick="pickCenter(),clustering()" class="pick_button">
           вибір центру
