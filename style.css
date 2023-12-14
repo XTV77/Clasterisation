@@ -117,6 +117,10 @@ body {
 button {
   margin: 2px;
 }
+button:disabled {
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #000;
+}
 
 .toner {
   width: 100%;
