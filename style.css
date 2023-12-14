@@ -110,8 +110,12 @@ body {
           justify-content: center;
   background-image: url(sourse/background.jpg);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   background-color: rgb(0, 0, 0);
+}
+
+button {
+  margin: 2px;
 }
 
 .toner {
@@ -142,6 +146,8 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 .navbar button {
   color: #000;
@@ -185,7 +191,6 @@ body {
 }
 .input-form p {
   color: #eaeaea;
-  margin-bottom: 2px;
   font-size: 12px;
 }
 .input-form .input-info {

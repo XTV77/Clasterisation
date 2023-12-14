@@ -1,11 +1,11 @@
 const HTML_Area = document.querySelector(".area");
 const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
+let HTML_Area_size = [];
 let point_size = 0;
-let HTML_Area_size = HTML_Area.getBoundingClientRect();
-let X_LeftBorder = parseFloat(HTML_Area_size.x.toFixed(2));
-let Y_TopBorder = parseFloat(HTML_Area_size.y.toFixed(2));
-let X_max = parseFloat(HTML_Area_size.width.toFixed(2)) - point_size;
-let Y_max = parseFloat(HTML_Area_size.height.toFixed(2)) - point_size;
+let X_LeftBorder = 0;
+let Y_TopBorder = 0;
+let X_max = 0;
+let Y_max = 0;
 
 const eps = 0.005;
 let numberOfPoint = 0;
